@@ -12,9 +12,13 @@ class UserSocket {
         this.socket.on('tp-change', this.tpChange.bind(this));
         this.socket.on('help-request', this.helpRequest.bind(this));
         this.socket.on('help-success', this.helpSuccess.bind(this));
+        this.socket.on('help-list', this.getHelpList.bind(this));
+    }
+    getHelpList() {
         this.dao.getAll().then((helps) => {
-            this.socket.emit('help-list', helps);
-        });
+            this.socket.emit('help-list-response', { status: true, data: helps });
+        }).catch((e) => this.socket.emit('help-list-response', { status: false, data: e.message }));
+        ;
     }
     tpChange(tp) {
     }
