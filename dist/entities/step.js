@@ -1,8 +1,8 @@
 "use strict";
 class Step {
-    constructor(description, stateUser = new Map()) {
+    constructor(description, _id) {
         this.description = description;
-        this.stateUser = stateUser;
+        this._id = _id;
     }
 }
 exports.Step = Step;

@@ -26,7 +26,7 @@ export class DaoUser extends GenericDao<User> {
         });
     }
 
-    add(entity: User): Promise<string> {
+    add(entity: User): Promise<boolean> {
         entity.pass = this.conUtil.encryption(entity.pass);
         return super.add(entity);
     }
