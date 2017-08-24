@@ -8,6 +8,12 @@
             "command": "tsc --watch",
             "type": "shell",
             "problemMatcher": []
+        },
+        {
+            "taskName": "mongo",
+            "command": "mongod --dbpath c:/data/db",
+            "type": "shell",
+            "problemMatcher": []
         }
     ]
 }

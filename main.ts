@@ -11,6 +11,5 @@ server.run();
 // dao.getUserByLogin('test@test.com','test').then((trucs) => console.log(trucs));
 // dao.update(new User('modif', 'modif@bloup.com', '1234',0,'5964e2ccbd30212fcbcec899')).then((id) => console.log(id));
 
-// dao.add(new User('test', 'test', 'test')).then((id) => console.log(id));
 // dao.add(new User('admin', 'admin', 'admin', 1)).then((id) => console.log(id));
 // dao.getUserByLogin('ajout@mail.com', 'bloup').then((user) => console.log(user));

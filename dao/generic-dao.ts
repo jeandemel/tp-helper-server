@@ -22,26 +22,27 @@ export class GenericDao<T> {
 
         });
     }
-    add(entity: T): Promise<string> {
+    add(entity: T): Promise<boolean> {
+        if(typeof((<any>entity)._id) !== 'undefined'){
+            return this.update(entity);
+        }
         return this.conUtil.getCollection().then((collection: Collection) => {
             let cursor = collection.insertOne(entity);
             return cursor.then((optresult) => {
                 this.conUtil.closeConnection();
-                return optresult.insertedId.toHexString();
+                return true;
 
             });
 
         });
     }
     update(entity: T): Promise<boolean> {
-        let modifEntity = Object.create(<any>entity);
-        modifEntity._id = new ObjectId(modifEntity._id);
+        let modifEntity = this.entityTransform(entity);
         return this.conUtil.getCollection().then((collection: Collection) => {
             let cursor = collection.replaceOne({ _id: modifEntity._id }, modifEntity);
             return cursor.then((optresult) => {
                 this.conUtil.closeConnection();
                 if (optresult.modifiedCount === 1) {
-                    console.log(entity);
                     return true;
                 }
                 return false;
@@ -51,14 +52,13 @@ export class GenericDao<T> {
         });
     }
     delete(entity: T): Promise<boolean> {
-        let modifEntity = Object.create(<any>entity);
-        modifEntity._id = new ObjectId(modifEntity._id);
+        let modifEntity = this.entityTransform(entity);
         return this.conUtil.getCollection().then((collection: Collection) => {
             let cursor = collection.deleteOne({ _id: modifEntity._id });
             return cursor.then((optresult) => {
                 this.conUtil.closeConnection();
                 if (optresult.deletedCount === 1) {
-                    
+
                     return true;
                 }
                 return false;
@@ -66,6 +66,14 @@ export class GenericDao<T> {
             });
 
         });
+    }
+
+    protected entityTransform(entity: T): any {
+        let modifEntity = Object.create(<any>entity);
+        if (typeof ((<any>entity)._id) !== 'undefined') {
+            modifEntity._id = new ObjectId(modifEntity._id);
+        }
+        return modifEntity;
     }
 
 }

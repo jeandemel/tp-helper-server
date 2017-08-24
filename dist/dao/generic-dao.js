@@ -16,23 +16,24 @@ class GenericDao {
         });
     }
     add(entity) {
+        if (typeof (entity._id) !== 'undefined') {
+            return this.update(entity);
+        }
         return this.conUtil.getCollection().then((collection) => {
             let cursor = collection.insertOne(entity);
             return cursor.then((optresult) => {
                 this.conUtil.closeConnection();
-                return optresult.insertedId.toHexString();
+                return true;
             });
         });
     }
     update(entity) {
-        let modifEntity = Object.create(entity);
-        modifEntity._id = new bson_1.ObjectId(modifEntity._id);
+        let modifEntity = this.entityTransform(entity);
         return this.conUtil.getCollection().then((collection) => {
             let cursor = collection.replaceOne({ _id: modifEntity._id }, modifEntity);
             return cursor.then((optresult) => {
                 this.conUtil.closeConnection();
                 if (optresult.modifiedCount === 1) {
-                    console.log(entity);
                     return true;
                 }
                 return false;
@@ -40,8 +41,7 @@ class GenericDao {
         });
     }
     delete(entity) {
-        let modifEntity = Object.create(entity);
-        modifEntity._id = new bson_1.ObjectId(modifEntity._id);
+        let modifEntity = this.entityTransform(entity);
         return this.conUtil.getCollection().then((collection) => {
             let cursor = collection.deleteOne({ _id: modifEntity._id });
             return cursor.then((optresult) => {
@@ -52,6 +52,13 @@ class GenericDao {
                 return false;
             });
         });
+    }
+    entityTransform(entity) {
+        let modifEntity = Object.create(entity);
+        if (typeof (entity._id) !== 'undefined') {
+            modifEntity._id = new bson_1.ObjectId(modifEntity._id);
+        }
+        return modifEntity;
     }
 }
 exports.GenericDao = GenericDao;
