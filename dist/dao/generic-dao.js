@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const connection_util_1 = require("./connection-util");
 const bson_1 = require("bson");
 class GenericDao {

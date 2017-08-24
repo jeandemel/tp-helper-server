@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const user_socket_1 = require("./user-socket");
 const admin_socket_1 = require("./admin-socket");
 class SocketFactory {

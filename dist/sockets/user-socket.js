@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const help_1 = require("../entities/help");
 const dao_help_1 = require("../dao/dao-help");
 class UserSocket {

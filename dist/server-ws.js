@@ -1,7 +1,8 @@
 "use strict";
-const dao_user_1 = require('./dao/dao-user');
-const io = require('socket.io');
-const http = require('http');
+Object.defineProperty(exports, "__esModule", { value: true });
+const dao_user_1 = require("./dao/dao-user");
+const io = require("socket.io");
+const http = require("http");
 const socket_factory_1 = require("./sockets/socket-factory");
 class ServerWs {
     constructor() {

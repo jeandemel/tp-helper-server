@@ -1,6 +1,7 @@
 "use strict";
-const mongodb_1 = require('mongodb');
-const crypto = require('crypto');
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongodb_1 = require("mongodb");
+const crypto = require("crypto");
 class ConnectionUtil {
     constructor(collName) {
         this.collName = collName;

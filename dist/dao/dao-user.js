@@ -1,5 +1,6 @@
 "use strict";
-const generic_dao_1 = require('./generic-dao');
+Object.defineProperty(exports, "__esModule", { value: true });
+const generic_dao_1 = require("./generic-dao");
 class DaoUser extends generic_dao_1.GenericDao {
     constructor() {
         super('user');
